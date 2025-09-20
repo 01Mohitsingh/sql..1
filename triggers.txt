@@ -1,0 +1,32 @@
+set 
+DECLARE
+  message varchar2(100):= 'Hello, World!'; 
+BEGIN 
+  dbms_output.put_line(message); 
+END;
+
+
+
+
+-- create trigger execute a task for message
+-- emp123 (salary -100)
+
+ create table emp123(
+    emp_id int primary key ,
+    emp_name varchar(50),
+    salary decimal(10,2)
+    );
+    
+  select * from emp123;
+  
+  create trigger check_salary_before_insert 
+  before insert on emp123
+  for each row
+  BEGIN
+    dbms_output.put_line('hello brother')
+    if :new.salary < 0 then
+    new.salary := 0
+  END;
+  
+  insert into emp123 values(1,'Dashrath Singh',-199);
+  

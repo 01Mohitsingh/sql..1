@@ -1,0 +1,41 @@
+create table employee5(
+  emp_id int,
+  emp_name varchar(59),
+  department varchar(50),
+  salary decimal(10,2)
+  );
+  
+create table empyee_audit(
+  action_type varchar(29),
+  emp_id int,
+  old_name varchar(50),
+  new_name varchar(50),
+  old_department varchar(59),
+  new_department varchar(50),
+  old_salary decimal(10,2),
+  new_salary decimal(10,2),
+  changed_by varchar(100),
+  changed_by timestamp default current_timestamp
+  );
+  
+create trigger audit_employee_insert
+after insert on employee4
+for each row
+BEGIN
+  insert into employee_adit(
+    action_type, emp_id, new_name, new_department, new_salary, changed_by
+    )
+  values(
+    insert
+    :new.emp_id,
+    :new.emp_name,
+    :new.department,
+    :new.salary,
+     user()
+    );
+    
+END;
+
+
+-- write a trigger for audits in case of update,delete or insert for each row
+-- what is procedures and function
